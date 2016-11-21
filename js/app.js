@@ -1,5 +1,6 @@
         var map;
         var verdun = {lat: 49.1588, lng: 5.38733 };
+        var verdun2 = {lat: 49.158, lng: 5.387 };
         function initMap() {
             var mapOptions = {
             zoom:17,
@@ -30,16 +31,29 @@
                 draggable: true
             });
             ///////////// END MARQUEUR POSITION INITIALE////// 
+            
+            ///////////// START CIRCLE ////// 
             var zeCircle = new google.maps.Circle({
-              strokeColor: '#FF0000',
-              strokeOpacity: 0.8,
+              strokeColor: 'green',
+              strokeOpacity: 0.5,
               strokeWeight: 2,
-              fillColor: '#FF0000',
-              fillOpacity: 0.35,
+              fillColor: 'green',
+              fillOpacity: 0.2,
               map: map,
-              center: verdun,
+              center: marker.position,
               radius: 200
             });
+            var zeCircle2 = new google.maps.Circle({
+              strokeColor: 'red',
+              strokeOpacity: 0.5,
+              strokeWeight: 2,
+              fillColor: 'red',
+              fillOpacity: 0.3,
+              map: map,
+              center: verdun2,
+              radius: 200
+            });
+            ///////////// END CIRCLE ////// 
         }
         
         function detectBrowser() {
@@ -55,4 +69,4 @@
           }
         }
 
-    detectBrowser();
+    //detectBrowser();
