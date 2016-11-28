@@ -1,6 +1,48 @@
         var map;
         var verdun = {lat: 49.1588, lng: 5.38733 };
-        var verdun2 = {lat: 49.158, lng: 5.387 };
+        var home = {lat: 49.1587, lng: 5.39053 };
+        var zeRadius = 200;
+
+            ///////////// START CIRCLES ////// 
+        function pokemonfound() {
+            var zeCircle = new google.maps.Circle({
+              strokeColor: '#FF0000',
+              strokeOpacity: 0.5,
+              strokeWeight: 5,
+              fillColor: 'green',
+              fillOpacity: 0.2,
+              map: map,
+              center: marker.position,
+              radius: zeRadius
+            });
+            
+            var zeCircleMe = new google.maps.Circle({
+              strokeColor: 'green',
+              strokeOpacity: 0.5,
+              strokeWeight: 5,
+              fillColor: '#FF0000',
+              fillOpacity: 0.3,
+              map: map,
+              center: marker.position,
+              radius: zeRadius - 161
+            });
+        }    
+            
+        function pokemonlost() {
+            var zeCircleNotFound = new google.maps.Circle({
+              strokeColor: 'green',
+              strokeOpacity: 0.5,
+              strokeWeight: 5,
+              fillColor: '#FF0000',
+              fillOpacity: 0.3,
+              map: map,
+              center: marker.position,
+              radius: zeRadius
+            });
+        }
+            ///////////// END CIRCLES ////// 
+        
+        
         function initMap() {
             var mapOptions = {
             zoom:17,
@@ -32,41 +74,4 @@
             });
             ///////////// END MARQUEUR POSITION INITIALE////// 
             
-            ///////////// START CIRCLE ////// 
-            var zeCircle = new google.maps.Circle({
-              strokeColor: 'green',
-              strokeOpacity: 0.5,
-              strokeWeight: 2,
-              fillColor: 'green',
-              fillOpacity: 0.2,
-              map: map,
-              center: marker.position,
-              radius: 200
-            });
-            var zeCircle2 = new google.maps.Circle({
-              strokeColor: 'red',
-              strokeOpacity: 0.5,
-              strokeWeight: 2,
-              fillColor: 'red',
-              fillOpacity: 0.3,
-              map: map,
-              center: verdun2,
-              radius: 200
-            });
-            ///////////// END CIRCLE ////// 
         }
-        
-        function detectBrowser() {
-          var useragent = navigator.userAgent;
-          var mapdiv = document.getElementById("map");
-        
-          if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
-            mapdiv.style.width = '100%';
-            mapdiv.style.height = '100%';
-          } else {
-            mapdiv.style.width = '600px';
-            mapdiv.style.height = '800px';
-          }
-        }
-
-    //detectBrowser();
