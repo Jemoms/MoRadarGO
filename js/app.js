@@ -59,7 +59,7 @@
             redCircles++;
             }
             else {
-                return 0;
+                alert("You can only use 2 red circles !");
             }
         }
         ///////////// END CIRCLES ////// 
@@ -71,6 +71,7 @@
             circle = null;
             }
             zosCircles = [];
+            redCircles = 0;
         }
         ///////////////// END RESET CIRCLES //////////////////////
         
