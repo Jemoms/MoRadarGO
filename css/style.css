@@ -1,5 +1,4 @@
       html, body { 
-            position: relative;
             height: 100%; 
             margin: 0; 
             padding: 0; 
@@ -11,32 +10,31 @@
             width: 100%;
       }
       
-      #pokefound {
+      .mobuttons {
             position: absolute;
+            z-index: 1000;
             height: 40px;
             width: 40px;
+            text-align: center;
+      }
+      span {
+            color: white;
+      }
+      
+      #pokefound {
             top: 1%;
             right: 1%;
             background-color: green;  
-            z-index: 1000;
       }
       
       #pokelost {
-            position: absolute;
-            height: 40px;
-            width: 40px;
             top: 1%;
             left: 1%;
             background-color: red;
-            z-index: 1000;
       }
       
       #pokereset {
-            position: absolute;
-            height: 40px;
-            width: 40px;
             left: 1%;
             bottom: 5%;
             background-color: blue;  
-            z-index: 1000;
       }

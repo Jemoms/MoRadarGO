@@ -1,47 +1,78 @@
-        var map;
+        var map, pos, zeCircleNotFound, zeCircle, zeCircleMe, zosCircles = [];
         var verdun = {lat: 49.1588, lng: 5.38733 };
         var home = {lat: 49.1587, lng: 5.39053 };
         var zeRadius = 200;
+        var redCircles = 0;
+        var found = document.querySelector("#pokefound");
+        var lost = document.querySelector("#pokelost");
+        var reset = document.querySelector("#pokereset");
+        
 
-            ///////////// START CIRCLES ////// 
-        function pokemonfound() {
-            var zeCircle = new google.maps.Circle({
+        ///////////// START CIRCLES ////// 
+        function pokemonfound(position) {
+            if (zeCircle != null) {
+                zeCircle.setMap(null);
+                zeCircle = null;
+            }
+            zeCircle = new google.maps.Circle({
               strokeColor: '#FF0000',
               strokeOpacity: 0.5,
               strokeWeight: 5,
               fillColor: 'green',
               fillOpacity: 0.2,
               map: map,
-              center: marker.position,
+              center: position,
               radius: zeRadius
             });
+            zosCircles.push(zeCircle);
             
-            var zeCircleMe = new google.maps.Circle({
+            if (zeCircleMe != null) {
+                zeCircleMe.setMap(null);
+                zeCircleMe = null;
+            }
+            zeCircleMe = new google.maps.Circle({
               strokeColor: 'green',
               strokeOpacity: 0.5,
               strokeWeight: 5,
               fillColor: '#FF0000',
               fillOpacity: 0.3,
               map: map,
-              center: marker.position,
+              center: position,
               radius: zeRadius - 161
             });
+            zosCircles.push(zeCircleMe);
         }    
             
-        function pokemonlost() {
-            var zeCircleNotFound = new google.maps.Circle({
+        function pokemonlost(position) {
+            if (redCircles < 2) {
+            zeCircleNotFound = new google.maps.Circle({
               strokeColor: 'green',
               strokeOpacity: 0.5,
               strokeWeight: 5,
               fillColor: '#FF0000',
               fillOpacity: 0.3,
               map: map,
-              center: marker.position,
+              center: position,
               radius: zeRadius
             });
+            zosCircles.push(zeCircleNotFound);
+            redCircles++;
+            }
+            else {
+                return 0;
+            }
         }
-            ///////////// END CIRCLES ////// 
-        
+        ///////////// END CIRCLES ////// 
+            
+        ///////////////// RESET CIRCLES //////////////////////
+        function pokemonreset(circles) {
+            for (var circle of circles) { 
+            circle.setMap(null);
+            circle = null;
+            }
+            zosCircles = [];
+        }
+        ///////////////// END RESET CIRCLES //////////////////////
         
         function initMap() {
             var mapOptions = {
@@ -50,7 +81,7 @@
             disableDefaultUI: true,
             zoomControl: true
             }
-            var map = new google.maps.Map(document.getElementById("map"),
+            map = new google.maps.Map(document.getElementById("map"),
                mapOptions);
                
             /////////////START GEOLOCALISATION////// 
@@ -65,13 +96,24 @@
 
             }
             ///////////// END GEOLOCALISATION////// 
-            
+
             ///////////// START MARQUEUR POSITION INITIALE////// 
+            //var image = 'images/iconemogoradar.png'
             var marker = new google.maps.Marker({
                 position: verdun,
                 map: map,
                 draggable: true
+                //icon: image
             });
             ///////////// END MARQUEUR POSITION INITIALE////// 
-            
+            google.maps.event.addDomListener(found, 'click', function() {
+                pokemonfound(marker.position);
+            });
+            google.maps.event.addDomListener(lost, 'click', function() {
+                pokemonlost(marker.position);
+            });
+            google.maps.event.addDomListener(reset, 'click', function() {
+                pokemonreset(zosCircles);
+            });
         }
+        
